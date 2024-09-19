@@ -4,7 +4,7 @@ set(LIB_SOURCES
 	utilities.c
 )
 
-add_library(myutil STATIC ${LIB_SOURCES})
+add_library(baseutils STATIC ${LIB_SOURCES})
 
 list(APPEND LIB_PUBLIC_HEADERS
 	../include/dbg.h
@@ -18,10 +18,10 @@ if (USE_CHECK)
 	)
 endif()
 
-set_target_properties(myutil PROPERTIES
+set_target_properties(baseutils PROPERTIES
 	PUBLIC_HEADER "${LIB_PUBLIC_HEADERS}"
 )
 
-install(TARGETS myutil
+install(TARGETS baseutils
 	LIBRARY DESTINATION lib
 	PUBLIC_HEADER DESTINATION include/${PROJECT_NAME})

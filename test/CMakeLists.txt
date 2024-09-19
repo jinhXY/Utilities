@@ -13,7 +13,7 @@ find_package(Check REQUIRED CONFIG)
 # )
 
 set(TEST_LIBS
-	myutil
+	baseutils
 	check
 )
 

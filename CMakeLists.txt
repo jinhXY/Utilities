@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.30.2)
 
-project(my-utilities)
+project(baseutils)
 
 option(USE_CHECK "Whether to use the features that require Check (unit testing and macros) OFF")
 
