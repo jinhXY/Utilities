@@ -25,6 +25,8 @@ static const util_to_string_fn functions[] = {
 	util_string_to_string
 };
 
+/* SECTION - Tests */
+
 START_TEST(test_generic_to_string)
 {
 	long x = 0;
@@ -133,6 +135,8 @@ START_TEST(test_string_to_string_empty)
 }
 
 END_TEST
+
+/* !SECTION */
 
 Suite *to_string_suite_create(void)
 {

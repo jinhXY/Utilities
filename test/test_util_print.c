@@ -141,7 +141,7 @@ Suite *print_suite_create(void)
 	tcase_add_test(edges, test_int_print_min_max);
 	tcase_add_test(edges, test_double_print_min_max);
 
-	invalid_args = tcase_create(CASE_INVALID);
+	invalid_args = tcase_create(CASE_SIGNAL_INVALID);
 #ifndef NDEBUG // This test relies on the behavior of asserts
 	tcase_add_loop_test_raise_signal(invalid_args, test_invalid_arg, SIGABRT, 0, NUM_OF_FN);
 #endif

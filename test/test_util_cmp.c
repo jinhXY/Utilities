@@ -17,6 +17,7 @@
 	ck_assert(fn(NULL, NULL) == 0);
 
 /* SECTION - Tests */
+
 START_TEST(test_char_cmp_equal)
 {
 	char c1 = 'a';
