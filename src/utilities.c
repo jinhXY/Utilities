@@ -240,11 +240,17 @@ error:
 
 char *util_string_to_string(const void *s)
 {
+	char *str;
+
 	if (!s) {
 		return NULL;
 	}
 
-	return strdup((const char *) s);
+	str = strdup((const char *) s);
+	check_mem(str);
+
+error:
+	return str;
 }
 
 /* !SECTION */
