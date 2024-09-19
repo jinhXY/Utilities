@@ -260,7 +260,8 @@ void *util_string_from_string(const char *str);
 
 /**
  * @brief Frees a pointer to a string and its content.
- * Meant to be used together with util_string_from_string() and similar.
+ * ~~Meant to be used together with util_string_from_string() and similar.~~
+ * @deprecated Useless after reducing indirection in other string functions.
  *
  * @param str String to free. NULL is no-op.
  */

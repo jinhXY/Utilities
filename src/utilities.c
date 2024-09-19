@@ -103,7 +103,7 @@ int util_string_print(FILE *file, const void *s)
 		return fprintf(file, "%s ", DEF_NULL);
 	}
 
-	return fprintf(file, "%s ", *(char *const *) s);
+	return fprintf(file, "%s ", (const char *) s);
 }
 
 /* !SECTION */
@@ -154,7 +154,7 @@ int util_string_cmp(const void *str1, const void *str2)
 		return (!str1 < !str2) - (!str1 > !str2);
 	}
 
-	return strcmp(*(char *const *) str1, *(char *const *) str2);
+	return strcmp((const char *) str1, (const char *) str2);
 }
 
 /* !SECTION */
@@ -235,7 +235,7 @@ char *util_string_to_string(const void *s)
 		return NULL;
 	}
 
-	return strdup(*(char *const *) s);
+	return strdup((const char *) s);
 }
 
 /* !SECTION */
@@ -298,24 +298,13 @@ error:
 
 void *util_string_from_string(const char *str)
 {
-	char **p = NULL;
-	char *s  = NULL;
-
 	ASSERT(str != NULL);
 
-	p = (char **) malloc(sizeof(char *));
-	check_mem(p);
-
-	s = strdup(str);
+	char *s = strdup(str);
 	check_mem(s);
-	*p = s;
-
-	return (void *) p;
 
 error:
-	free(s);
-	free((void *) p);
-	return NULL;
+	return s;
 }
 
 /* !SECTION */

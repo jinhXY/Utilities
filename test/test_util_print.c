@@ -103,7 +103,7 @@ START_TEST(test_string_print)
 {
 	char *str = "This is a test";
 
-	test_print("Print string: ", util_string_print, (void *) &str);
+	test_print("Print string: ", util_string_print, str);
 }
 
 END_TEST
