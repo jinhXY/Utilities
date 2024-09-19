@@ -27,6 +27,7 @@ typedef int (*util_print)(FILE *file, const void *elem);
 
 /**
  * @brief Function type to compare two elements.
+ *
  * @details The function type shall be consistent with a total order relation
  * (reflexive, symmetric, transitive, strong connectivity) over the set of values
  * that both elements can take, except possibly NULL.
@@ -42,15 +43,24 @@ typedef int (*util_compare)(const void *elem1, const void *elem2);
 /**
  * @brief Function type to convert an element to a string.
  *
+ * @details To reduce ambiguity with return values and simplify error handling,
+ * one might not want NULL to be returned as the string for a null element. Instead,
+ * special strings such as `null`, `NIL` or `NULL` could be used.
+ * If one chooses to return string literals or preallocated strings, it is important
+ * to modify the way the string is freed to avoid invalid calls to free().
+ *
  * @param elem Element to convert to string.
  *
  * @return String that represents the element. String is malloc'ed and must be freed after use.
- * NULL is returned if the element is NULL or if malloc fails.
+ * NULL is returned if the element is NULL (implementation defined) or if malloc fails.
  */
 typedef char *(*util_toString)(const void *elem);
 
 /**
  * @brief Function type to convert strings to elements.
+ *
+ * @details To reduce ambiguity with return values and simplify error handling,
+ * NULL should not be returned as a valid element. Consider using a special null object instead.
  *
  * @param str String with the element. Must not be NULL.
  *
@@ -70,25 +80,30 @@ typedef void (*util_free)(void *elem);
 
 /**
  * @brief Function type that evaluates a predicate on the given element.
+ * The test shall not modify the element.
  *
  * @param elem Element to test the boolean predicate on.
  *
- * @return true if the argument matches the predicate, false otherwise.
+ * @return `true` if the argument matches the predicate, `false` otherwise.
  */
-typedef bool (*util_predicate)(void *elem);
+typedef bool (*util_predicate)(const void *elem);
 
 /**
  * @brief Function type that tests whether two elements are equal.
+ *
  * @details The function type shall be consistent with an equivalence binary relation
  * (reflexive, symmetric and transitive) over the set of values that both elements can take,
  * except possibly NULL.
  *
+ * It should also be consistent accross mutiple invocations: two elements are equal if and
+ * only if this function returns `true` *always*.
+ *
  * @param elem1 First element to compare.
  * @param elem2 Second element to compare.
  *
- * @return true if both elements are equal, false otherwise.
+ * @return `true` if both elements are equal, `false` otherwise.
  */
-typedef bool (*util_equal)(void *elem1, void *elem2);
+typedef bool (*util_equal)(const void *elem1, const void *elem2);
 
 /* !SECTION */
 /* SECTION - Printing functions */
