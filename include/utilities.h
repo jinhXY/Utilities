@@ -289,5 +289,17 @@ void *util_double_fromString(const char *str);
 void *util_string_fromString(const char *str);
 
 /* !SECTION */
+/* SECTION - Misc */
+
+/**
+ * @brief Test whether two pointers point to the same address.
+ *
+ * @param e1 First pointer.
+ * @param e2 Second pointer.
+ * @return true if e1 == e2, false otherwise.
+ */
+bool util_genericEqual(const void *e1, const void *e2);
+
+/* !SECTION */
 
 #endif

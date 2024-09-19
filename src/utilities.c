@@ -326,3 +326,11 @@ error:
 }
 
 /* !SECTION */
+/* SECTION - Misc */
+
+bool util_genericEqual(const void *e1, const void *e2)
+{
+	return e1 == e2;
+}
+
+/* !SECTION */
