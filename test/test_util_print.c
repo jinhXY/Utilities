@@ -126,22 +126,22 @@ Suite *print_suite_create(void)
 	TCase *edges;
 	TCase *invalid_args;
 
-	s    = suite_create("Printing functions");
-	core = tcase_create("Core");
+	s = suite_create("Printing functions");
 
+	core = tcase_create(CASE_CORE);
 	tcase_add_test(core, test_generic_print);
 	tcase_add_test(core, test_char_print);
 	tcase_add_test(core, test_int_print);
 	tcase_add_test(core, test_double_print);
 	tcase_add_test(core, test_string_print);
 
-	edges = tcase_create("Edge cases");
+	edges = tcase_create(CASE_LIMITS);
 	tcase_add_loop_test(edges, test_print_null, 0, NUM_OF_FN);
 	tcase_add_test(edges, test_print_null);
 	tcase_add_test(edges, test_int_print_min_max);
 	tcase_add_test(edges, test_double_print_min_max);
 
-	invalid_args = tcase_create("Invalid arguments");
+	invalid_args = tcase_create(CASE_INVALID);
 #ifndef NDEBUG // This test relies on the behavior of asserts
 	tcase_add_loop_test_raise_signal(invalid_args, test_invalid_arg, SIGABRT, 0, NUM_OF_FN);
 #endif
