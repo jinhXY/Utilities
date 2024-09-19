@@ -133,7 +133,10 @@ int util_int_cmp(const void *int1, const void *int2)
 		return (!int1 < !int2) - (!int1 > !int2);
 	}
 
-	return *(const int *) int1 - *(const int *) int2;
+	int i1 = *(const int *) int1;
+	int i2 = *(const int *) int2;
+
+	return (i1 > i2) - (i1 < i2);
 }
 
 int util_double_cmp(const void *double1, const void *double2)
