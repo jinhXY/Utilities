@@ -22,7 +22,8 @@ typedef enum {
 	E_SUCCESS,       /**< Successful execution */
 	E_OUT_OF_MEMORY, /**< Ran out of memory */
 	E_INVALID_ARG,   /**< Invalid arguments provided to the function */
-	E_INVALID_OP     /**< Invalid operation / function call is not permitted */
+	E_INVALID_OP,    /**< Invalid operation or function call */
+	E_ERROR,         /**< Generic error code */
 } ErrStatus;
 
 /**
