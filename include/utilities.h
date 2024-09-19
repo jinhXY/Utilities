@@ -112,7 +112,7 @@ int util_double_print(FILE *file, const void *d);
  * @brief Print a string, followed by a space.
  *
  * @param file A pointer to the stream. Must not be NULL.
- * @param s A pointer to the string to print. @ref DEF_NULL is printed if NULL.
+ * @param s String to print. @ref DEF_NULL is printed if NULL.
  * @return Number of bytes printed.
  * Returns a negative number if there were errors while printing
  */
@@ -157,8 +157,8 @@ int util_double_cmp(const void *double1, const void *double2);
 /**
  * @brief Compare two strings.
  *
- * @param str1 Pointer to the first string.
- * @param str2 Pointer to the second string.
+ * @param str1 First string.
+ * @param str2 Second string.
  * @return A negative integer, zero, or a positive integer as str1
  * is less than, equal to, or greater than the specified str2.
  * NULL is always ordered before any other element, and is always equal to itself.
@@ -207,7 +207,7 @@ char *util_double_to_string(const void *d);
 /**
  * @brief Converts a string given its pointer to a string.
  *
- * @param s Pointer to the string.
+ * @param s String.
  * @return Copy of the string provided. Must be freed after use.
  * NULL is returned if the element is NULL or if malloc fails (use errno to know which one).
  */
@@ -250,7 +250,7 @@ void *util_double_from_string(const char *str);
  * @brief Duplicates a string.
  *
  * @param str String to duplicate. Must not be NULL.
- * @return *Pointer* to the duplicated string. Must be freed after use.
+ * @return Duplicated string. Must be freed after use.
  * NULL is returned if malloc fails or if the string could not be copied.
  */
 void *util_string_from_string(const char *str);
