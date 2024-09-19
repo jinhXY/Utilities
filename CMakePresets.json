@@ -15,7 +15,7 @@
 			"cacheVariables": {
 				"USE_CHECK": "ON",
 				"CMAKE_BUILD_TYPE": "Debug",
-				"CMAKE_C_FLAGS": "-Wall -Wextra -Wpedantic -std=gnu17 -ggdb3 -fno-eliminate-unused-debug-symbols -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined -DCURRENT_FILE=THIS_FILENAME"
+				"CMAKE_C_FLAGS": "-Wall -Wextra -Wpedantic -std=gnu17 -ggdb3 -fno-eliminate-unused-debug-symbols -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined -DCURRENT_FILE=THIS_FILENAME -rdynamic"
 			}
 		},
 		{
@@ -27,7 +27,7 @@
 			"cacheVariables": {
 				"USE_CHECK": "ON",
 				"CMAKE_BUILD_TYPE": "Debug",
-				"CMAKE_C_FLAGS": "-Wall -Wextra -Wpedantic -std=gnu17 -ggdb3 -fno-eliminate-unused-debug-symbols -DCURRENT_FILE=THIS_FILENAME"
+				"CMAKE_C_FLAGS": "-Wall -Wextra -Wpedantic -std=gnu17 -ggdb3 -fno-eliminate-unused-debug-symbols -DCURRENT_FILE=THIS_FILENAME -rdynamic"
 			}
 		},
 		{
@@ -39,7 +39,7 @@
 			"cacheVariables": {
 				"USE_CHECK": "ON",
 				"CMAKE_BUILD_TYPE": "Release",
-				"CMAKE_C_FLAGS": "-Wall -Wextra -Wpedantic -std=gnu17 -O3 -DCURRENT_FILE=THIS_FILENAME"
+				"CMAKE_C_FLAGS": "-Wall -Wextra -Wpedantic -std=gnu17 -O3 -DCURRENT_FILE=THIS_FILENAME -rdynamic"
 			}
 		}
 	]

@@ -11,6 +11,7 @@
 
 #include <assert.h>
 #include <errno.h>
+#include <execinfo.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -36,26 +37,12 @@ typedef enum {
 	#define CURRENT_FILE __FILE__
 #endif
 
-#ifdef SILENT
-	#define NDEBUG
-#endif
+/**
+ * @brief Maximum number of function calls displayed in the stacktrace by default.
+ */
+#define STACKTRACE_CALLS 16
 
-#ifdef NDEBUG
-	#define debug(M, ...)
-	#define ASSERT(expr)
-
-#else
-	/**
-	 * @brief Prints a debug message to `stderr`. Same format as printf.
-	 */
-	#define debug(M, ...) fprintf(stderr, "DEBUG %s:%d: " M "\n", CURRENT_FILE, __LINE__, ##__VA_ARGS__)
-
-	/**
-	 * @brief Reimplementation of assert() that uses @ref CURRENT_FILE to customize the file name
-	 * that is printed out.
-	 */
-	#define claim(expr)   ((expr) ? (void) 0 : __assert_fail(#expr, CURRENT_FILE, __LINE__, __func__))
-#endif
+/* SECTION - Logging */
 
 /**
  * @brief Returns a string containing the status of errno.
@@ -81,7 +68,72 @@ typedef enum {
 	 * @brief Prints an info message to `stderr`. Same format as printf.
 	 */
 	#define log_info(M, ...) fprintf(stderr, "[INFO] (%s:%d) " M "\n", CURRENT_FILE, __LINE__, ##__VA_ARGS__)
+
+	/**
+	 * @brief Prints the stacktrace to `stderr`.
+	 *
+	 * @param size Maximum number of function calls displayed.
+	 */
+	#define print_stacktrace(size)                               \
+		void *buffer[STACKTRACE_CALLS];                          \
+                                                                 \
+		int len           = backtrace(buffer, STACKTRACE_CALLS); \
+		char **stacktrace = backtrace_symbols(buffer, len);      \
+                                                                 \
+		for (int i = 0; i < len; i++) {                          \
+			fprintf(stderr, "\t%s\n", stacktrace[i]);            \
+		}                                                        \
+                                                                 \
+		free(stacktrace);
+
 #endif
+
+/* !SECTION */
+/* SECTION - Debugging */
+
+#ifdef SILENT
+	#define NDEBUG
+#endif
+
+#ifdef NDEBUG
+	#define debug(M, ...)
+	#define claim(expr)
+	#define claimf(expr, msg)
+#else
+	/**
+	 * @brief Prints a debug message to `stderr`. Same format as printf.
+	 */
+	#define debug(M, ...) fprintf(stderr, "DEBUG %s:%d: " M "\n", CURRENT_FILE, __LINE__, ##__VA_ARGS__)
+
+	/**
+	 * @brief Custom implementation of assert.
+	 * @details This implementation differs in the following ways with assert:
+	 * - It uses @ref CURRENT_FILE to customize the file name that is printed out.
+	 * - It prints the stacktace to `stderr`.
+	 */
+	#define claim(expr)                                                 \
+		do {                                                            \
+			if (!(expr)) {                                              \
+				print_stacktrace(STACKTRACE_CALLS);                     \
+				__assert_fail(#expr, CURRENT_FILE, __LINE__, __func__); \
+			}                                                           \
+		} while (0)
+
+	/**
+	 * @brief Similar to claim(), that logs an additional error message.
+	 */
+	#define claimf(expr, M, ...)                                        \
+		do {                                                            \
+			if (!(expr)) {                                              \
+				log_err(M, ##__VA_ARGS__);                              \
+				print_stacktrace(STACKTRACE_CALLS);                     \
+				__assert_fail(#expr, CURRENT_FILE, __LINE__, __func__); \
+			}                                                           \
+		} while (0)
+#endif
+
+/* !SECTION */
+/* SECTION - Logging */
 
 /**
  * @brief Check if condition A is true. If it is, logs an error and jumps to error label for cleanup.
@@ -117,5 +169,7 @@ typedef enum {
 		errno = 0;               \
 		goto error;              \
 	}
+
+/* !SECTION */
 
 #endif
