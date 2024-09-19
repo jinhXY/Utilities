@@ -8,8 +8,9 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
-#define _POSIX_C_SOURCE 200809L
+#define _POSIX_C_SOURCE 200809L // NOLINT
 
+#include <stdbool.h>
 #include <stdio.h>
 
 /* SECTION - Function types */
