@@ -24,6 +24,11 @@
 					/* Can't figure out a way of using leak detection with gdb */
 					"name": "ASAN_OPTIONS",
 					"value": "detect_leaks=0"
+				},
+				{
+					/* Makes finding segfaults easier */
+					"name": "CK_FORK",
+					"value": "no"
 				}
 			],
 			"externalConsole": false,

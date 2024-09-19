@@ -5,7 +5,9 @@
 	},
 	"C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
 		"clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling",
-		"bugprone-macro-parentheses"
+		"bugprone-macro-parentheses",
+		"bugprone-multi-level-implicit-pointer-conversion",
+		"bugprone-easily-swappable-parameters"
 	],
 	"c-cpp-flylint.language": "c",
 	"c-cpp-flylint.standard": [
