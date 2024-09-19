@@ -25,6 +25,10 @@
  */
 #define CASE_INVALID "Invalid arguments"
 
+/**
+ * @brief Name for cases where invalid arguments are provided and function behavior is undefined.
+ */
+#define CASE_SIGNAL_INVALID "Invalid arguments (undefined behavior)"
 
 /**
  * @brief Tag for tests that should not run when fork is enabled.
