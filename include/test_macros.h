@@ -11,6 +11,22 @@
 #include <stdlib.h>
 
 /**
+ * @brief Name for core test cases.
+ */
+#define CASE_CORE "Core"
+
+/**
+ * @brief Name for edge cases.
+ */
+#define CASE_LIMITS "Edge cases"
+
+/**
+ * @brief Name for cases where invalid arguments are provided.
+ */
+#define CASE_INVALID "Invalid arguments"
+
+
+/**
  * @brief Tag for tests that should not run when fork is enabled.
  */
 #define NO_FORK_TAG "nofork"
