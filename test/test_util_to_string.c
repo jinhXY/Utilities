@@ -83,6 +83,13 @@ START_TEST(test_null_to_string)
 
 END_TEST
 
+START_TEST(test_char_to_string_nul)
+{
+	char c = '\0';
+
+	test_to_string(util_char_to_string, &c, "NUL character", "");
+}
+
 START_TEST(test_int_to_string_max)
 {
 	int i1 = INT_MAX;
@@ -155,6 +162,7 @@ Suite *to_string_suite_create(void)
 	tcase_add_loop_test(core, test_null_to_string, 0, NUM_OF_FN);
 
 	limits = tcase_create(CASE_LIMITS);
+	tcase_add_test(limits, test_char_to_string_nul);
 	tcase_add_test(limits, test_int_to_string_max);
 	tcase_add_test(limits, test_int_to_string_min);
 	tcase_add_test(limits, test_double_to_string_max);
