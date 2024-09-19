@@ -91,6 +91,7 @@ int util_char_print(FILE *file, const void *c);
 
 /**
  * @brief Print an integer, followed by a space.
+ * Format uses %d specifier.
  *
  * @param file A pointer to the stream. Must not be NULL.
  * @param i A pointer to the integer to print (base 10). @ref DEF_NULL is printed if NULL.
@@ -100,10 +101,11 @@ int util_char_print(FILE *file, const void *c);
 int util_int_print(FILE *file, const void *i);
 
 /**
- * @brief Print a double precision value (using %g specifier), followed by a space.
+ * @brief Print a double precision value, followed by a space.
+ * Format uses %g specifier and DBL_DIG significant digits.
  *
  * @param file A pointer to the stream. Must not be NULL.
- * @param d A pointer to the value to print (base 10). @ref DEF_NULL is printed if NULL.
+ * @param d A pointer to the value to print. @ref DEF_NULL is printed if NULL.
  * @return Number of bytes printed.
  * Returns a negative number if there were errors while printing
  */
@@ -192,7 +194,8 @@ char *util_char_to_string(const void *c);
  * @brief Converts a signed integer to a string.
  *
  * @param i Pointer to the integer.
- * @return String with the printed integer (base 10). Must be freed after use.
+ * @return String with the printed integer. Must be freed after use.
+ * Format uses %d specifier.
  * NULL is returned if the element is NULL or if malloc fails (use errno to know which one).
  */
 char *util_int_to_string(const void *i);
@@ -201,7 +204,8 @@ char *util_int_to_string(const void *i);
  * @brief Converts a double precision value to a string.
  *
  * @param d Pointer to the value.
- * @return String with the printed double (base 10). Must be freed after use.
+ * @return String with the printed double. Must be freed after use.
+ * Format uses %g specifier and DBL_DIG significant digits.
  * NULL is returned if the element is NULL or if malloc fails (use errno to know which one).
  */
 char *util_double_to_string(const void *d);
@@ -241,7 +245,7 @@ void *util_int_from_string(const char *str);
 /**
  * @brief Creates a double from a string.
  *
- * @param str String with the double (base 10, using %g specifier). Must not be NULL.
+ * @param str String with the double (base 10). Must not be NULL.
  * Trailing characters after the number are ignored. Parsing is done with strtod().
  * @return Pointer to the double created. Must be freed after use.
  * NULL is returned if malloc fails or if the string could not be parsed.
