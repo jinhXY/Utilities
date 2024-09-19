@@ -26,8 +26,14 @@ typedef enum {
 /**
  * @brief Obtains the name of the file, including the extension.
  */
-#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+#define THIS_FILENAME (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
+#ifndef CURRENT_FILE
+	/**
+	 * @brief Redefine this macro to modify the format of the file that gets printed out.
+	 */
+	#define CURRENT_FILE __FILE__
+#endif
 
 #ifdef SILENT
 	#define NDEBUG
@@ -41,19 +47,13 @@ typedef enum {
 	/**
 	 * @brief Prints a debug message to `stderr`. Same format as printf.
 	 */
-	#define debug(M, ...) fprintf(stderr, "DEBUG %s:%d: " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+	#define debug(M, ...) fprintf(stderr, "DEBUG %s:%d: " M "\n", CURRENT_FILE, __LINE__, ##__VA_ARGS__)
 
 	/**
-	 * @brief Reimplementation of assert() that uses @ref __FILENAME__ instead of the file's
-	 * full path. This is to omit the file prefix in released binaries with debug information.
+	 * @brief Reimplementation of assert() that uses @ref CURRENT_FILE to customize the file name
+	 * that is printed out.
 	 */
-	#define ASSERT(expr)                                                          \
-		((void) sizeof((expr) ? 1 : 0), __extension__({                           \
-			 if (expr)                                                            \
-				 ; /* empty */                                                    \
-			 else                                                                 \
-				 __assert_fail(#expr, __FILENAME__, __LINE__, __ASSERT_FUNCTION); \
-		 }))
+	#define ASSERT(expr)  ((expr) ? (void) 0 : __assert_fail(#expr, CURRENT_FILE, __LINE__, __ASSERT_FUNCTION))
 #endif
 
 /**
@@ -69,17 +69,17 @@ typedef enum {
 	/**
 	 * @brief Prints an error message to `stderr`. Same format as printf.
 	 */
-	#define log_err(M, ...)  fprintf(stderr, "[ERROR] (%s:%d: errno: %s) " M "\n", __FILE__, __LINE__, clean_errno(), ##__VA_ARGS__)
+	#define log_err(M, ...)  fprintf(stderr, "[ERROR] (%s:%d: errno: %s) " M "\n", CURRENT_FILE, __LINE__, clean_errno(), ##__VA_ARGS__)
 
 	/**
 	 * @brief Prints a warning message to `stderr`. Same format as printf.
 	 */
-	#define log_warn(M, ...) fprintf(stderr, "[WARN] (%s:%d: errno: %s) " M "\n", __FILE__, __LINE__, clean_errno(), ##__VA_ARGS__)
+	#define log_warn(M, ...) fprintf(stderr, "[WARN] (%s:%d: errno: %s) " M "\n", CURRENT_FILE, __LINE__, clean_errno(), ##__VA_ARGS__)
 
 	/**
 	 * @brief Prints an info message to `stderr`. Same format as printf.
 	 */
-	#define log_info(M, ...) fprintf(stderr, "[INFO] (%s:%d) " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+	#define log_info(M, ...) fprintf(stderr, "[INFO] (%s:%d) " M "\n", CURRENT_FILE, __LINE__, ##__VA_ARGS__)
 #endif
 
 /**
