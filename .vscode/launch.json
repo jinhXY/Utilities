@@ -58,6 +58,7 @@
 			"args": [
 				"${cmake.testArgs}"
 			],
+			"stopAtEntry": true
 		}
 	]
 }

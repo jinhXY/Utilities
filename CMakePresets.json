@@ -19,6 +19,18 @@
 			}
 		},
 		{
+			"name": "Dev - No sanitizer",
+			"displayName": "dev-nsan",
+			"description": "Build compiled with debug flags without sanitizers",
+			"generator": "Unix Makefiles",
+			"binaryDir": "${sourceDir}/build",
+			"cacheVariables": {
+				"USE_CHECK": "ON",
+				"CMAKE_BUILD_TYPE": "Debug",
+				"CMAKE_C_FLAGS": "-Wall -Wextra -Wpedantic -std=gnu17 -ggdb3 -fno-eliminate-unused-debug-symbols"
+			}
+		},
+		{
 			"name": "Release",
 			"displayName": "release",
 			"description": "Build compiled with optimal flags and no debugging",
