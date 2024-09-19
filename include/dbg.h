@@ -18,10 +18,11 @@
  * @brief Contains common error codes.
  */
 typedef enum {
-	OK,            /**< Successful execution */
-	OUT_OF_MEMORY, /**< Ran out of memory */
-	INVALID_ARG    /**< Invalid arguments provided to the function */
-} Status;
+	E_SUCCESS,       /**< Successful execution */
+	E_OUT_OF_MEMORY, /**< Ran out of memory */
+	E_INVALID_ARG,   /**< Invalid arguments provided to the function */
+	E_INVALID_OP     /**< Invalid operation / function call is not permitted */
+} ErrStatus;
 
 /**
  * @brief Obtains the name of the file, including the extension.
