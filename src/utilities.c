@@ -169,7 +169,7 @@ int util_string_cmp(const void *str1, const void *str2)
 /* !SECTION */
 /* SECTION - To string functions */
 
-char *util_generic_to_string(const void *elem)
+char *util_generic_toString(const void *elem)
 {
 	char *str;
 
@@ -186,7 +186,7 @@ error:
 	return str;
 }
 
-char *util_char_to_string(const void *c)
+char *util_char_toString(const void *c)
 {
 	char *str;
 
@@ -204,7 +204,7 @@ error:
 	return str;
 }
 
-char *util_int_to_string(const void *n)
+char *util_int_toString(const void *n)
 {
 	char *str;
 
@@ -221,7 +221,7 @@ error:
 	return str;
 }
 
-char *util_double_to_string(const void *d)
+char *util_double_toString(const void *d)
 {
 	char *str;
 
@@ -238,7 +238,7 @@ error:
 	return str;
 }
 
-char *util_string_to_string(const void *s)
+char *util_string_toString(const void *s)
 {
 	char *str;
 
@@ -256,7 +256,7 @@ error:
 /* !SECTION */
 /* SECTION - From string functions */
 
-void *util_char_from_string(const char *str)
+void *util_char_fromString(const char *str)
 {
 	ASSERT(str != NULL);
 
@@ -269,7 +269,7 @@ error:
 	return c;
 }
 
-void *util_int_from_string(const char *str)
+void *util_int_fromString(const char *str)
 {
 	ASSERT(str != NULL);
 
@@ -294,7 +294,7 @@ error:
 	return NULL;
 }
 
-void *util_double_from_string(const char *str)
+void *util_double_fromString(const char *str)
 {
 	ASSERT(str != NULL);
 
@@ -314,7 +314,7 @@ error:
 	return NULL;
 }
 
-void *util_string_from_string(const char *str)
+void *util_string_fromString(const char *str)
 {
 	ASSERT(str != NULL);
 

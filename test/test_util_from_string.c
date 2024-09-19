@@ -11,11 +11,11 @@
 
 #define NUM_OF_FN 4
 
-static const util_elem_from_string_fn functions[] = {
-	util_char_from_string,
-	util_int_from_string,
-	util_double_from_string,
-	util_string_from_string
+static const util_elemFromString functions[] = {
+	util_char_fromString,
+	util_int_fromString,
+	util_double_fromString,
+	util_string_fromString
 };
 
 /* SECTION - Tests */
@@ -25,7 +25,7 @@ START_TEST(test_char_from_string)
 	const char *str = "c";
 	char *p;
 
-	test_from_string(p, str, util_char_from_string, *p == 'c');
+	test_from_string(p, str, util_char_fromString, *p == 'c');
 }
 
 END_TEST
@@ -35,7 +35,7 @@ START_TEST(test_int_from_string)
 	const char *str = "12345";
 	int *p;
 
-	test_from_string(p, str, util_int_from_string, *p == 12345);
+	test_from_string(p, str, util_int_fromString, *p == 12345);
 }
 
 END_TEST
@@ -45,7 +45,7 @@ START_TEST(test_double_from_string)
 	const char *str = "123456789009.87654321";
 	double *p;
 
-	test_from_string(p, str, util_double_from_string, *p == 123456789009.87654321);
+	test_from_string(p, str, util_double_fromString, *p == 123456789009.87654321);
 }
 
 END_TEST
@@ -55,7 +55,7 @@ START_TEST(test_string_from_string)
 	const char *str = "World Hello";
 	char *p;
 
-	test_from_string(p, str, util_string_from_string, strcmp(str, p) == 0);
+	test_from_string(p, str, util_string_fromString, strcmp(str, p) == 0);
 }
 
 END_TEST
@@ -65,7 +65,7 @@ START_TEST(test_char_from_string_nul)
 	const char *str = "";
 	char *p;
 
-	test_from_string(p, str, util_char_from_string, *p == '\0');
+	test_from_string(p, str, util_char_fromString, *p == '\0');
 }
 
 END_TEST
@@ -75,7 +75,7 @@ START_TEST(test_char_from_string_trailing)
 	const char *str = "cdefghijk0987654321";
 	char *p;
 
-	test_from_string(p, str, util_char_from_string, *p == 'c');
+	test_from_string(p, str, util_char_fromString, *p == 'c');
 }
 
 END_TEST
@@ -85,7 +85,7 @@ START_TEST(test_int_from_string_trailing)
 	const char *str = "12345qwerty";
 	int *p;
 
-	test_from_string(p, str, util_int_from_string, *p == 12345);
+	test_from_string(p, str, util_int_fromString, *p == 12345);
 }
 
 END_TEST
@@ -95,7 +95,7 @@ START_TEST(test_int_from_string_middle)
 	const char *str = "123qwerty45";
 	int *p;
 
-	test_from_string(p, str, util_int_from_string, *p == 123);
+	test_from_string(p, str, util_int_fromString, *p == 123);
 }
 
 END_TEST
@@ -105,7 +105,7 @@ START_TEST(test_int_from_string_leading)
 	const char *str = "qwerty12345";
 	int *p;
 
-	test_from_string(p, str, util_int_from_string, p == NULL);
+	test_from_string(p, str, util_int_fromString, p == NULL);
 }
 
 END_TEST
@@ -116,7 +116,7 @@ START_TEST(test_int_from_string_overflow)
 	int *p;
 
 	snprintf(str, 128, "%u", (unsigned) INT_MAX + 1);
-	test_from_string(p, str, util_int_from_string, p == NULL);
+	test_from_string(p, str, util_int_fromString, p == NULL);
 }
 
 END_TEST
@@ -128,7 +128,7 @@ START_TEST(test_int_from_string_underflow)
 
 	snprintf(str + 1, 127, "%u", (unsigned) INT_MIN + 1);
 	str[0] = '-'; // Add minus sign
-	test_from_string(p, str, util_int_from_string, p == NULL);
+	test_from_string(p, str, util_int_fromString, p == NULL);
 }
 
 END_TEST
@@ -138,7 +138,7 @@ START_TEST(test_int_from_string_invalid)
 	const char *str = "cfpqwo i1388";
 	int *p;
 
-	test_from_string(p, str, util_int_from_string, p == NULL);
+	test_from_string(p, str, util_int_fromString, p == NULL);
 }
 
 END_TEST
@@ -148,7 +148,7 @@ START_TEST(test_int_from_string_empty)
 	const char *str = "";
 	int *p;
 
-	test_from_string(p, str, util_int_from_string, p == NULL);
+	test_from_string(p, str, util_int_fromString, p == NULL);
 }
 
 END_TEST
@@ -158,7 +158,7 @@ START_TEST(test_double_from_string_trailing)
 	const char *str = "1234.567nbvcxz";
 	double *p;
 
-	test_from_string(p, str, util_double_from_string, *p == 1234.567);
+	test_from_string(p, str, util_double_fromString, *p == 1234.567);
 }
 
 END_TEST
@@ -168,7 +168,7 @@ START_TEST(test_double_from_string_middle)
 	const char *str = "-123.4nbvcxz09.87654321";
 	double *p;
 
-	test_from_string(p, str, util_double_from_string, *p == -123.4);
+	test_from_string(p, str, util_double_fromString, *p == -123.4);
 }
 
 END_TEST
@@ -178,7 +178,7 @@ START_TEST(test_double_from_string_leading)
 	const char *str = "nbvcxz1234.87654321";
 	double *p;
 
-	test_from_string(p, str, util_double_from_string, p == NULL);
+	test_from_string(p, str, util_double_fromString, p == NULL);
 }
 
 END_TEST
@@ -188,7 +188,7 @@ START_TEST(test_double_from_string_overflow)
 	const char *str = "34e+1024";
 	double *p;
 
-	test_from_string(p, str, util_double_from_string, p == NULL);
+	test_from_string(p, str, util_double_fromString, p == NULL);
 }
 
 END_TEST
@@ -198,7 +198,7 @@ START_TEST(test_double_from_string_underflow)
 	const char *str = "34e-1024";
 	double *p;
 
-	test_from_string(p, str, util_double_from_string, p == NULL);
+	test_from_string(p, str, util_double_fromString, p == NULL);
 }
 
 END_TEST
@@ -208,7 +208,7 @@ START_TEST(test_double_from_string_exp)
 	const char *str = "1e-3";
 	double *p;
 
-	test_from_string(p, str, util_double_from_string, *p == 0.001);
+	test_from_string(p, str, util_double_fromString, *p == 0.001);
 }
 
 END_TEST
@@ -218,7 +218,7 @@ START_TEST(test_double_from_string_hex)
 	const char *str = "0x1F6db9";
 	double *p;
 
-	test_from_string(p, str, util_double_from_string, *p == 2059705);
+	test_from_string(p, str, util_double_fromString, *p == 2059705);
 }
 
 END_TEST
@@ -228,7 +228,7 @@ START_TEST(test_double_from_string_hex_exp)
 	const char *str = "0x1Fp-19";
 	double *p;
 
-	test_from_string(p, str, util_double_from_string, *p - 5.91278076172e-05 <= DBL_EPSILON);
+	test_from_string(p, str, util_double_fromString, *p - 5.91278076172e-05 <= DBL_EPSILON);
 }
 
 END_TEST
@@ -239,7 +239,7 @@ START_TEST(test_double_from_string_hex_neg)
 	const char *str = "-0x1F";
 	double *p;
 
-	test_from_string(p, str, util_double_from_string, *p == -31);
+	test_from_string(p, str, util_double_fromString, *p == -31);
 }
 
 END_TEST
@@ -249,7 +249,7 @@ START_TEST(test_double_from_string_inf)
 	const char *str = "INF";
 	double *p;
 
-	test_from_string(p, str, util_double_from_string, !isfinite(*p));
+	test_from_string(p, str, util_double_fromString, !isfinite(*p));
 }
 
 END_TEST
@@ -259,7 +259,7 @@ START_TEST(test_double_from_string_nan)
 	const char *str = "NAN";
 	double *p;
 
-	test_from_string(p, str, util_double_from_string, isnan(*p));
+	test_from_string(p, str, util_double_fromString, isnan(*p));
 }
 
 END_TEST
@@ -269,7 +269,7 @@ START_TEST(test_double_from_string_empty)
 	const char *str = "";
 	double *p;
 
-	test_from_string(p, str, util_double_from_string, p == NULL);
+	test_from_string(p, str, util_double_fromString, p == NULL);
 }
 
 END_TEST
@@ -279,7 +279,7 @@ START_TEST(test_string_from_string_empty)
 	const char *str = "";
 	char *p;
 
-	test_from_string(p, str, util_string_from_string, strcmp(str, p) == 0);
+	test_from_string(p, str, util_string_fromString, strcmp(str, p) == 0);
 }
 
 END_TEST

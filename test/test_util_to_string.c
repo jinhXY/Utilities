@@ -17,12 +17,12 @@
 	}
 
 
-static const util_to_string_fn functions[] = {
-	util_generic_to_string,
-	util_char_to_string,
-	util_int_to_string,
-	util_double_to_string,
-	util_string_to_string
+static const util_toString functions[] = {
+	util_generic_toString,
+	util_char_toString,
+	util_int_toString,
+	util_double_toString,
+	util_string_toString
 };
 
 /* SECTION - Tests */
@@ -33,7 +33,7 @@ START_TEST(test_generic_to_string)
 	char str[128];
 	snprintf(str, 128, "0x%" PRIxPTR, (uintptr_t) &x);
 
-	test_to_string(util_generic_to_string, &x, "Generic pointer", str);
+	test_to_string(util_generic_toString, &x, "Generic pointer", str);
 }
 
 END_TEST
@@ -42,7 +42,7 @@ START_TEST(test_char_to_string)
 {
 	char c = '!';
 
-	test_to_string(util_char_to_string, &c, "Char", "!");
+	test_to_string(util_char_toString, &c, "Char", "!");
 }
 
 END_TEST
@@ -51,7 +51,7 @@ START_TEST(test_int_to_string)
 {
 	int i = 0;
 
-	test_to_string(util_int_to_string, &i, "Integer", "0");
+	test_to_string(util_int_toString, &i, "Integer", "0");
 }
 
 END_TEST
@@ -62,7 +62,7 @@ START_TEST(test_double_to_string)
 	char str[128];
 	snprintf(str, 128, "%.*g", DBL_DIG, d);
 
-	test_to_string(util_double_to_string, &d, "Double", str);
+	test_to_string(util_double_toString, &d, "Double", str);
 }
 
 END_TEST
@@ -71,7 +71,7 @@ START_TEST(test_string_to_string)
 {
 	char *str = "Bananas";
 
-	test_to_string(util_string_to_string, str, "String", str);
+	test_to_string(util_string_toString, str, "String", str);
 }
 
 END_TEST
@@ -87,7 +87,7 @@ START_TEST(test_char_to_string_nul)
 {
 	char c = '\0';
 
-	test_to_string(util_char_to_string, &c, "NUL character", "");
+	test_to_string(util_char_toString, &c, "NUL character", "");
 }
 
 START_TEST(test_int_to_string_max)
@@ -96,7 +96,7 @@ START_TEST(test_int_to_string_max)
 	char str1[128];
 	snprintf(str1, 128, "%d", i1);
 
-	test_to_string(util_int_to_string, &i1, "Max integer", str1);
+	test_to_string(util_int_toString, &i1, "Max integer", str1);
 }
 
 END_TEST
@@ -107,7 +107,7 @@ START_TEST(test_int_to_string_min)
 	char str2[128];
 	snprintf(str2, 128, "%d", i2);
 
-	test_to_string(util_int_to_string, &i2, "Min integer", str2);
+	test_to_string(util_int_toString, &i2, "Min integer", str2);
 }
 
 END_TEST
@@ -118,7 +118,7 @@ START_TEST(test_double_to_string_max)
 	char str[128];
 	snprintf(str, 128, "%.*g", DBL_DIG, d);
 
-	test_to_string(util_double_to_string, &d, "Double max", str);
+	test_to_string(util_double_toString, &d, "Double max", str);
 }
 
 END_TEST
@@ -129,7 +129,7 @@ START_TEST(test_double_to_string_min)
 	char str[128];
 	snprintf(str, 128, "%.*g", DBL_DIG, d);
 
-	test_to_string(util_double_to_string, &d, "Double min", str);
+	test_to_string(util_double_toString, &d, "Double min", str);
 }
 
 END_TEST
@@ -138,7 +138,7 @@ START_TEST(test_string_to_string_empty)
 {
 	char *str = "";
 
-	test_to_string(util_string_to_string, str, "Empty string", str);
+	test_to_string(util_string_toString, str, "Empty string", str);
 }
 
 END_TEST

@@ -14,7 +14,7 @@
 
 #define NUM_OF_FN 5
 
-static const util_print_fn functions[NUM_OF_FN] = {
+static const util_print functions[NUM_OF_FN] = {
 	util_generic_print,
 	util_char_print,
 	util_int_print,

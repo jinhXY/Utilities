@@ -23,7 +23,7 @@
  *
  * @return Numbers of bytes printed. A negative number if there were errors while printing.
  */
-typedef int (*util_print_fn)(FILE *file, const void *elem);
+typedef int (*util_print)(FILE *file, const void *elem);
 
 /**
  * @brief Function type to compare two elements.
@@ -37,7 +37,7 @@ typedef int (*util_print_fn)(FILE *file, const void *elem);
  * @return A negative integer, zero, or a positive integer as elem1
  * is less than, equal to, or greater than elem2.
  */
-typedef int (*util_compare_fn)(const void *elem1, const void *elem2);
+typedef int (*util_compare)(const void *elem1, const void *elem2);
 
 /**
  * @brief Function type to convert an element to a string.
@@ -47,7 +47,7 @@ typedef int (*util_compare_fn)(const void *elem1, const void *elem2);
  * @return String that represents the element. String is malloc'ed and must be freed after use.
  * NULL is returned if the element is NULL or if malloc fails.
  */
-typedef char *(*util_to_string_fn)(const void *elem);
+typedef char *(*util_toString)(const void *elem);
 
 /**
  * @brief Function type to convert strings to elements.
@@ -59,14 +59,14 @@ typedef char *(*util_to_string_fn)(const void *elem);
  * (free() may be used for primitive types and util_string_free() for strings)
  * NULL is returned if malloc fails or if the string could not be parsed.
  */
-typedef void *(*util_elem_from_string_fn)(const char *str);
+typedef void *(*util_elemFromString)(const char *str);
 
 /**
  * @brief Function type to free an element
  *
  * @param elem Element to free. NULL is no-op.
  */
-typedef void (*util_free_fn)(void *elem);
+typedef void (*util_free)(void *elem);
 
 /**
  * @brief Function type that evaluates a predicate on the given element.
@@ -88,7 +88,7 @@ typedef bool (*util_predicate)(void *elem);
  *
  * @return true if both elements are equal, false otherwise.
  */
-typedef bool (*util_equals)(void *elem1, void *elem2);
+typedef bool (*util_equal)(void *elem1, void *elem2);
 
 /* !SECTION */
 /* SECTION - Printing functions */
@@ -204,7 +204,7 @@ int util_string_cmp(const void *str1, const void *str2);
  * @return String with the pointer address. Must be freed after use.
  * NULL is returned if the element is NULL or if malloc fails (use errno to know which one).
  */
-char *util_generic_to_string(const void *e);
+char *util_generic_toString(const void *e);
 
 /**
  * @brief Converts a signed character to a string.
@@ -213,7 +213,7 @@ char *util_generic_to_string(const void *e);
  * @return String with the printed character. Must be freed after use.
  * NULL is returned if the element is NULL or if malloc fails (use errno to know which one).
  */
-char *util_char_to_string(const void *c);
+char *util_char_toString(const void *c);
 
 /**
  * @brief Converts a signed integer to a string.
@@ -223,7 +223,7 @@ char *util_char_to_string(const void *c);
  * Format uses %d specifier.
  * NULL is returned if the element is NULL or if malloc fails (use errno to know which one).
  */
-char *util_int_to_string(const void *i);
+char *util_int_toString(const void *i);
 
 /**
  * @brief Converts a double precision value to a string.
@@ -233,7 +233,7 @@ char *util_int_to_string(const void *i);
  * Format uses %g specifier and DBL_DIG significant digits.
  * NULL is returned if the element is NULL or if malloc fails (use errno to know which one).
  */
-char *util_double_to_string(const void *d);
+char *util_double_toString(const void *d);
 
 /**
  * @brief Converts a string given its pointer to a string.
@@ -242,7 +242,7 @@ char *util_double_to_string(const void *d);
  * @return Copy of the string provided. Must be freed after use.
  * NULL is returned if the element is NULL or if malloc fails (use errno to know which one).
  */
-char *util_string_to_string(const void *s);
+char *util_string_toString(const void *s);
 
 /* !SECTION */
 /* SECTION - String parsing functions */
@@ -255,7 +255,7 @@ char *util_string_to_string(const void *s);
  * @return Pointer to the character created. Must be freed after use.
  * NULL is returned if malloc fails.
  */
-void *util_char_from_string(const char *str);
+void *util_char_fromString(const char *str);
 
 /**
  * @brief Creates an integer from a string.
@@ -265,7 +265,7 @@ void *util_char_from_string(const char *str);
  * @return Pointer to the integer created. Must be freed after use.
  * NULL is returned if malloc fails or if the string could not be parsed.
  */
-void *util_int_from_string(const char *str);
+void *util_int_fromString(const char *str);
 
 /**
  * @brief Creates a double from a string.
@@ -275,7 +275,7 @@ void *util_int_from_string(const char *str);
  * @return Pointer to the double created. Must be freed after use.
  * NULL is returned if malloc fails or if the string could not be parsed.
  */
-void *util_double_from_string(const char *str);
+void *util_double_fromString(const char *str);
 
 /**
  * @brief Duplicates a string.
@@ -284,14 +284,14 @@ void *util_double_from_string(const char *str);
  * @return Duplicated string. Must be freed after use.
  * NULL is returned if malloc fails or if the string could not be copied.
  */
-void *util_string_from_string(const char *str);
+void *util_string_fromString(const char *str);
 
 /* !SECTION */
 /* SECTION - Misc */
 
 /**
  * @brief Frees a pointer to a string and its content.
- * ~~Meant to be used together with util_string_from_string() and similar.~~
+ * ~~Meant to be used together with util_string_fromString() and similar.~~
  * @deprecated Useless after reducing indirection in other string functions.
  *
  * @param str String to free. NULL is no-op.
