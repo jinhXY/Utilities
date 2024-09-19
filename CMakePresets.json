@@ -7,14 +7,25 @@
 	},
 	"configurePresets": [
 		{
-			"name": "dev",
-			"displayName": "Dev",
+			"name": "Dev",
+			"displayName": "dev",
 			"description": "Build compiled with debug flags and sanitizers",
 			"generator": "Unix Makefiles",
 			"binaryDir": "${sourceDir}/build",
 			"cacheVariables": {
 				"CMAKE_BUILD_TYPE": "Debug",
 				"CMAKE_C_FLAGS": "-Wall -Wextra -Wpedantic -std=gnu17 -ggdb3 -fno-eliminate-unused-debug-symbols -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined"
+			}
+		},
+		{
+			"name": "Release",
+			"displayName": "release",
+			"description": "Build compiled with optimal flags and no debugging",
+			"generator": "Unix Makefiles",
+			"binaryDir": "${sourceDir}/build",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Release",
+				"CMAKE_C_FLAGS": "-Wall -Wextra -Wpedantic -std=gnu17 -O3"
 			}
 		}
 	]
