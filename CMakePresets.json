@@ -13,6 +13,7 @@
 			"generator": "Unix Makefiles",
 			"binaryDir": "${sourceDir}/build",
 			"cacheVariables": {
+				"USE_CHECK": "ON",
 				"CMAKE_BUILD_TYPE": "Debug",
 				"CMAKE_C_FLAGS": "-Wall -Wextra -Wpedantic -std=gnu17 -ggdb3 -fno-eliminate-unused-debug-symbols -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined"
 			}

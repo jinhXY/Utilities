@@ -108,10 +108,12 @@ START_TEST(test_string_print)
 
 END_TEST
 
+#ifndef NDEBUG
 START_TEST(test_invalid_arg)
 {
 	functions[_i](NULL, NULL);
 }
+#endif
 
 END_TEST
 
