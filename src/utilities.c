@@ -37,9 +37,9 @@
 #define MAX_DOUB_LEN (1 + DBL_DIG + 1 + 2 + (int) ceil(log10(DBL_MAX_10_EXP)))
 
 /**
- * @brief Maximum length of a string containing a long.
+ * @brief Maximum length of a string containing a signed long.
  */
-#define MAX_LONG_LEN ((size_t) ceil(log10((double) LONG_MAX)))
+#define MAX_LONG_LEN (1 + (int) ceil(log10((double) LONG_MAX)))
 
 /**
  * @brief Maximum length of a string containing a character.
@@ -47,9 +47,9 @@
 #define MAX_CHAR_LEN 1
 
 /**
- * @brief Maximum length of a string containing an integer.
+ * @brief Maximum length of a string containing a signed integer.
  */
-#define MAX_INT_LEN ((size_t) ceil(log10(INT_MAX)))
+#define MAX_INT_LEN (1 + (int) ceil(log10(INT_MAX)))
 
 /* SECTION - Printing functions */
 
