@@ -277,12 +277,14 @@ void *util_int_from_string(const char *str)
 	check_mem(i);
 
 	char *end;
+	errno    = 0;
 	long tmp = strtol(str, &end, 10);
-	if (tmp > INT_MAX || tmp < INT_MAX) {
+	if (tmp > INT_MAX || tmp < INT_MIN) {
 		errno = ERANGE;
 	}
-	check(errno != 0, "Error parsing %s", str);
+	check(errno == 0, "Error parsing %s", str);
 	check(end != str, "No integer could be parsed from %s", str);
+
 	*i = (int) tmp;
 
 	return i;
@@ -300,8 +302,9 @@ void *util_double_from_string(const char *str)
 	check_mem(d);
 
 	char *end;
-	*d = strtod(str, &end);
-	check(errno != 0, "Error parsing %s", str);
+	errno = 0;
+	*d    = strtod(str, &end);
+	check(errno == 0, "Error parsing %s", str);
 	check(end != str, "No value could be parsed from %s", str);
 
 	return d;
