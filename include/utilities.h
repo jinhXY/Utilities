@@ -26,13 +26,15 @@ typedef int (*util_print_fn)(FILE *file, const void *elem);
 
 /**
  * @brief Function type to compare two elements.
+ * @details The function type shall be consistent with a total order relation
+ * (reflexive, symmetric, transitive, strong connectivity) over the set of values
+ * that both elements can take, except possibly NULL.
  *
  * @param elem1 Pointer to the first element.
  * @param elem2 Pointer to the second element.
  *
  * @return A negative integer, zero, or a positive integer as elem1
  * is less than, equal to, or greater than elem2.
- * NULL is always ordered before any other element, and is always equal to itself.
  */
 typedef int (*util_compare_fn)(const void *elem1, const void *elem2);
 
@@ -64,6 +66,28 @@ typedef void *(*util_elem_from_string_fn)(const char *str);
  * @param elem Element to free. NULL is no-op.
  */
 typedef void (*util_free_fn)(void *elem);
+
+/**
+ * @brief Function type that evaluates a predicate on the given element.
+ *
+ * @param elem Element to test the boolean predicate on.
+ *
+ * @return true if the argument matches the predicate, false otherwise.
+ */
+typedef bool (*util_predicate)(void *elem);
+
+/**
+ * @brief Function type that tests whether two elements are equal.
+ * @details The function type shall be consistent with an equivalence binary relation
+ * (reflexive, symmetric and transitive) over the set of values that both elements can take,
+ * except possibly NULL.
+ *
+ * @param elem1 First element to compare.
+ * @param elem2 Second element to compare.
+ *
+ * @return true if both elements are equal, false otherwise.
+ */
+typedef bool (*util_equals)(void *elem1, void *elem2);
 
 /* !SECTION */
 /* SECTION - Printing functions */
@@ -228,7 +252,7 @@ char *util_string_to_string(const void *s);
  * @param str Pointer to the char. Must not be NULL.
  * Later characters are ignored.
  * @return Pointer to the character created. Must be freed after use.
- * NULL is returned if malloc fails or if the string could not be parsed.
+ * NULL is returned if malloc fails.
  */
 void *util_char_from_string(const char *str);
 
@@ -245,7 +269,7 @@ void *util_int_from_string(const char *str);
 /**
  * @brief Creates a double from a string.
  *
- * @param str String with the double (base 10). Must not be NULL.
+ * @param str String with the double. Must not be NULL.
  * Trailing characters after the number are ignored. Parsing is done with strtod().
  * @return Pointer to the double created. Must be freed after use.
  * NULL is returned if malloc fails or if the string could not be parsed.
