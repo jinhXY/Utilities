@@ -70,6 +70,7 @@ typedef void (*util_free_fn)(void *elem);
 
 /**
  * @brief Print the memory address of a given pointer, followed by a space.
+ * Format prints the memory address in an hexadecimal format, with leading '0X' and uppercase letters.
  *
  * @param file A pointer to the stream. Must not be NULL.
  * @param p The pointer to print. @ref DEF_NULL is printed if NULL.
@@ -170,6 +171,7 @@ int util_string_cmp(const void *str1, const void *str2);
 
 /**
  * @brief Converts the address of an element to a string.
+ * Format prints the memory address in an hexadecimal format, with leading '0x' and uppercase letters.
  *
  * @param e Pointer to print.
  * @return String with the pointer address. Must be freed after use.

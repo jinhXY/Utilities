@@ -11,11 +11,17 @@
 #include "macros.h"
 
 #include <float.h>
+#include <inttypes.h>
 #include <limits.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/**
+ * @brief Maximum length of a string containing a pointer.
+ */
+#define MAX_POINTER_LEN (2 + (int) ceil(log2((double) UINTPTR_MAX) / 4))
 
 /**
  * @brief Maximum length of a string containing a double.
@@ -59,7 +65,7 @@ int util_generic_print(FILE *file, const void *p)
 		return fprintf(file, "%s ", DEF_NULL);
 	}
 
-	return fprintf(file, "%p ", p);
+	return fprintf(file, "0x%" PRIxPTR, (uintptr_t) p);
 }
 
 int util_char_print(FILE *file, const void *c)
@@ -171,10 +177,10 @@ char *util_generic_to_string(const void *elem)
 		return NULL;
 	}
 
-	str = malloc((MAX_LONG_LEN + 1) * sizeof(char));
+	str = malloc((MAX_POINTER_LEN + 1) * sizeof(char));
 	check_mem(str);
 
-	snprintf(str, MAX_LONG_LEN + 1, "%p", elem);
+	snprintf(str, MAX_POINTER_LEN + 1, "0x%" PRIxPTR, (uintptr_t) elem);
 
 error:
 	return str;
