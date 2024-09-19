@@ -1,0 +1,14 @@
+{
+	"files.associations": {
+		"*.h": "c",
+		"random": "c"
+	},
+	"C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
+		"clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling",
+		"bugprone-macro-parentheses"
+	],
+	"c-cpp-flylint.language": "c",
+	"c-cpp-flylint.standard": [
+		"c17",
+	],
+}

@@ -1,0 +1,21 @@
+{
+	"version": 8,
+	"cmakeMinimumRequired": {
+		"major": 3,
+		"minor": 30,
+		"patch": 2
+	},
+	"configurePresets": [
+		{
+			"name": "dev",
+			"displayName": "Dev",
+			"description": "Build compiled with debug flags and sanitizers",
+			"generator": "Unix Makefiles",
+			"binaryDir": "${sourceDir}/build",
+			"cacheVariables": {
+				"CMAKE_BUILD_TYPE": "Debug",
+				"CMAKE_C_FLAGS": "-Wall -Wextra -Wpedantic -std=gnu17 -ggdb3 -fno-eliminate-unused-debug-symbols -fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined"
+			}
+		}
+	]
+}
