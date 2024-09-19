@@ -9,6 +9,7 @@
 #ifndef DBG_H
 #define DBG_H
 
+#include <assert.h>
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
@@ -22,17 +23,37 @@ typedef enum {
 	INVALID_ARG    /**< Invalid arguments provided to the function */
 } Status;
 
+/**
+ * @brief Obtains the name of the file, including the extension.
+ */
+#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
+
+
 #ifdef SILENT
 	#define NDEBUG
 #endif
 
 #ifdef NDEBUG
 	#define debug(M, ...)
+	#define ASSERT(expr)
+
 #else
 	/**
 	 * @brief Prints a debug message to `stderr`. Same format as printf.
 	 */
 	#define debug(M, ...) fprintf(stderr, "DEBUG %s:%d: " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+
+	/**
+	 * @brief Reimplementation of assert() that uses @ref __FILENAME__ instead of the file's
+	 * full path. This is to omit the file prefix in released binaries with debug information.
+	 */
+	#define ASSERT(expr)                                                          \
+		((void) sizeof((expr) ? 1 : 0), __extension__({                           \
+			 if (expr)                                                            \
+				 ; /* empty */                                                    \
+			 else                                                                 \
+				 __assert_fail(#expr, __FILENAME__, __LINE__, __ASSERT_FUNCTION); \
+		 }))
 #endif
 
 /**
