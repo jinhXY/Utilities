@@ -287,17 +287,5 @@ void *util_double_fromString(const char *str);
 void *util_string_fromString(const char *str);
 
 /* !SECTION */
-/* SECTION - Misc */
-
-/**
- * @brief Frees a pointer to a string and its content.
- * ~~Meant to be used together with util_string_fromString() and similar.~~
- * @deprecated Useless after reducing indirection in other string functions.
- *
- * @param str String to free. NULL is no-op.
- */
-void util_string_free(void *str);
-
-/* !SECTION */
 
 #endif

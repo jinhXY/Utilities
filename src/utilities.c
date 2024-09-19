@@ -326,14 +326,3 @@ error:
 }
 
 /* !SECTION */
-/* SECTION - Misc */
-
-void util_string_free(void *str)
-{
-	if (str) {
-		free(*(char **) str);
-		free(str);
-	}
-}
-
-/* !SECTION */
