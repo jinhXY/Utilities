@@ -10,7 +10,6 @@
 #include "dbg.h"
 #include "macros.h"
 
-#include <assert.h>
 #include <float.h>
 #include <limits.h>
 #include <math.h>
@@ -48,63 +47,63 @@
 
 /* SECTION - Printing functions */
 
-int util_generic_print(FILE *f, const void *p)
+int util_generic_print(FILE *file, const void *p)
 {
 	/* The pointer is not directly printed, since the C standard isn't too clear about the behavior of
 	 * fprintf with NULL pointers. It works totally fine with gcc though.
 	 * See https://stackoverflow.com/questions/44996471/printing-null-pointers-with-p-is-undefined-behavior?rq=3
 	 */
-	assert(f);
+	ASSERT(file != NULL);
 
 	if (!p) {
-		return fprintf(f, "%s ", DEF_NULL);
+		return fprintf(file, "%s ", DEF_NULL);
 	}
 
-	return fprintf(f, "%p ", p);
+	return fprintf(file, "%p ", p);
 }
 
-int util_char_print(FILE *f, const void *c)
+int util_char_print(FILE *file, const void *c)
 {
-	assert(f);
+	ASSERT(file != NULL);
 
 	if (!c) {
-		return fprintf(f, "%s ", DEF_NULL);
+		return fprintf(file, "%s ", DEF_NULL);
 	}
 
-	return fprintf(f, "%c ", *(const char *) c);
+	return fprintf(file, "%c ", *(const char *) c);
 }
 
-int util_int_print(FILE *f, const void *i)
+int util_int_print(FILE *file, const void *i)
 {
-	assert(f);
+	ASSERT(file != NULL);
 
 	if (!i) {
-		return fprintf(f, "%s ", DEF_NULL);
+		return fprintf(file, "%s ", DEF_NULL);
 	}
 
-	return fprintf(f, "%d ", *(const int *) i);
+	return fprintf(file, "%d ", *(const int *) i);
 }
 
-int util_double_print(FILE *f, const void *d)
+int util_double_print(FILE *file, const void *d)
 {
-	assert(f);
+	ASSERT(file != NULL);
 
 	if (!d) {
-		return fprintf(f, "%s ", DEF_NULL);
+		return fprintf(file, "%s ", DEF_NULL);
 	}
 
-	return fprintf(f, "%.*g", DBL_DIG, *(const double *) d);
+	return fprintf(file, "%.*g", DBL_DIG, *(const double *) d);
 }
 
-int util_string_print(FILE *f, const void *s)
+int util_string_print(FILE *file, const void *s)
 {
-	assert(f);
+	ASSERT(file != NULL);
 
 	if (!s) {
-		return fprintf(f, "%s ", DEF_NULL);
+		return fprintf(file, "%s ", DEF_NULL);
 	}
 
-	return fprintf(f, "%s ", *(char *const *) s);
+	return fprintf(file, "%s ", *(char *const *) s);
 }
 
 /* !SECTION */
@@ -244,7 +243,7 @@ char *util_string_to_string(const void *s)
 
 void *util_char_from_string(const char *str)
 {
-	assert(str);
+	ASSERT(str != NULL);
 
 	char *c = malloc(sizeof(char));
 	check_mem(c);
@@ -257,7 +256,7 @@ error:
 
 void *util_int_from_string(const char *str)
 {
-	assert(str);
+	ASSERT(str != NULL);
 
 	int *i = malloc(sizeof(int));
 	check_mem(i);
@@ -280,7 +279,7 @@ error:
 
 void *util_double_from_string(const char *str)
 {
-	assert(str);
+	ASSERT(str != NULL);
 
 	double *d = malloc(sizeof(double));
 	check_mem(d);
@@ -302,7 +301,7 @@ void *util_string_from_string(const char *str)
 	char **p = NULL;
 	char *s  = NULL;
 
-	assert(str);
+	ASSERT(str != NULL);
 
 	p = (char **) malloc(sizeof(char *));
 	check_mem(p);

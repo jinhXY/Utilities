@@ -17,12 +17,12 @@
 /**
  * @brief Function type to print an element.
  *
- * @param f Stream to print to. Must not be NULL.
+ * @param file Stream to print to. Must not be NULL.
  * @param elem Element to print. @ref DEF_NULL is printed if NULL.
  *
  * @return Numbers of bytes printed. A negative number if there were errors while printing.
  */
-typedef int (*util_print_fn)(FILE *f, const void *elem);
+typedef int (*util_print_fn)(FILE *file, const void *elem);
 
 /**
  * @brief Function type to compare two elements.
@@ -71,52 +71,52 @@ typedef void (*util_free_fn)(void *elem);
 /**
  * @brief Print the memory address of a given pointer, followed by a space.
  *
- * @param f A pointer to the stream. Must not be NULL.
+ * @param file A pointer to the stream. Must not be NULL.
  * @param p The pointer to print. @ref DEF_NULL is printed if NULL.
  * @return Number of bytes printed.
  * Returns a negative number if there were errors while printing
  */
-int util_generic_print(FILE *f, const void *p);
+int util_generic_print(FILE *file, const void *p);
 
 /**
  * @brief Print a char, followed by a space.
  *
- * @param f A pointer to the stream. Must not be NULL.
+ * @param file A pointer to the stream. Must not be NULL.
  * @param c A pointer to the char to print. @ref DEF_NULL is printed if NULL.
  * @return Number of bytes printed.
  * Returns a negative number if there were errors while printing
  */
-int util_char_print(FILE *f, const void *c);
+int util_char_print(FILE *file, const void *c);
 
 /**
  * @brief Print an integer, followed by a space.
  *
- * @param f A pointer to the stream. Must not be NULL.
+ * @param file A pointer to the stream. Must not be NULL.
  * @param i A pointer to the integer to print (base 10). @ref DEF_NULL is printed if NULL.
  * @return Number of bytes printed.
  * Returns a negative number if there were errors while printing
  */
-int util_int_print(FILE *f, const void *i);
+int util_int_print(FILE *file, const void *i);
 
 /**
  * @brief Print a double precision value (using %g specifier), followed by a space.
  *
- * @param f A pointer to the stream. Must not be NULL.
+ * @param file A pointer to the stream. Must not be NULL.
  * @param d A pointer to the value to print (base 10). @ref DEF_NULL is printed if NULL.
  * @return Number of bytes printed.
  * Returns a negative number if there were errors while printing
  */
-int util_double_print(FILE *f, const void *d);
+int util_double_print(FILE *file, const void *d);
 
 /**
  * @brief Print a string, followed by a space.
  *
- * @param f A pointer to the stream. Must not be NULL.
+ * @param file A pointer to the stream. Must not be NULL.
  * @param s A pointer to the string to print. @ref DEF_NULL is printed if NULL.
  * @return Number of bytes printed.
  * Returns a negative number if there were errors while printing
  */
-int util_string_print(FILE *f, const void *s);
+int util_string_print(FILE *file, const void *s);
 
 /* !SECTION */
 /* SECTION - Comparison functions */
