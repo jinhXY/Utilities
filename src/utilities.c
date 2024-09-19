@@ -59,7 +59,7 @@ int util_generic_print(FILE *file, const void *p)
 	 * fprintf with NULL pointers. It works totally fine with gcc though.
 	 * See https://stackoverflow.com/questions/44996471/printing-null-pointers-with-p-is-undefined-behavior?rq=3
 	 */
-	ASSERT(file != NULL);
+	claim(file != NULL);
 
 	if (!p) {
 		return fprintf(file, "%s ", DEF_NULL);
@@ -70,7 +70,7 @@ int util_generic_print(FILE *file, const void *p)
 
 int util_char_print(FILE *file, const void *c)
 {
-	ASSERT(file != NULL);
+	claim(file != NULL);
 
 	if (!c) {
 		return fprintf(file, "%s ", DEF_NULL);
@@ -81,7 +81,7 @@ int util_char_print(FILE *file, const void *c)
 
 int util_int_print(FILE *file, const void *i)
 {
-	ASSERT(file != NULL);
+	claim(file != NULL);
 
 	if (!i) {
 		return fprintf(file, "%s ", DEF_NULL);
@@ -92,7 +92,7 @@ int util_int_print(FILE *file, const void *i)
 
 int util_double_print(FILE *file, const void *d)
 {
-	ASSERT(file != NULL);
+	claim(file != NULL);
 
 	if (!d) {
 		return fprintf(file, "%s ", DEF_NULL);
@@ -103,7 +103,7 @@ int util_double_print(FILE *file, const void *d)
 
 int util_string_print(FILE *file, const void *s)
 {
-	ASSERT(file != NULL);
+	claim(file != NULL);
 
 	if (!s) {
 		return fprintf(file, "%s ", DEF_NULL);
@@ -258,7 +258,7 @@ error:
 
 void *util_char_fromString(const char *str)
 {
-	ASSERT(str != NULL);
+	claim(str != NULL);
 
 	char *c = malloc(sizeof(char));
 	check_mem(c);
@@ -271,7 +271,7 @@ error:
 
 void *util_int_fromString(const char *str)
 {
-	ASSERT(str != NULL);
+	claim(str != NULL);
 
 	int *i = malloc(sizeof(int));
 	check_mem(i);
@@ -296,7 +296,7 @@ error:
 
 void *util_double_fromString(const char *str)
 {
-	ASSERT(str != NULL);
+	claim(str != NULL);
 
 	double *d = malloc(sizeof(double));
 	check_mem(d);
@@ -316,7 +316,7 @@ error:
 
 void *util_string_fromString(const char *str)
 {
-	ASSERT(str != NULL);
+	claim(str != NULL);
 
 	char *s = strdup(str);
 	check_mem(s);

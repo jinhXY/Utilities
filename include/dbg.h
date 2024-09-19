@@ -54,7 +54,7 @@ typedef enum {
 	 * @brief Reimplementation of assert() that uses @ref CURRENT_FILE to customize the file name
 	 * that is printed out.
 	 */
-	#define ASSERT(expr)  ((expr) ? (void) 0 : __assert_fail(#expr, CURRENT_FILE, __LINE__, __ASSERT_FUNCTION))
+	#define claim(expr)   ((expr) ? (void) 0 : __assert_fail(#expr, CURRENT_FILE, __LINE__, __func__))
 #endif
 
 /**
