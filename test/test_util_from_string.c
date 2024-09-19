@@ -1,6 +1,7 @@
 #include "test_macros.h"
 #include "utilities.h"
 
+#include <errno.h>
 #include <limits.h>
 #include <signal.h>
 
@@ -106,6 +107,7 @@ START_TEST(test_int_from_string_leading)
 	int *p;
 
 	test_from_string(p, str, util_int_fromString, p == NULL);
+	ck_assert(errno == 0);
 }
 
 END_TEST
@@ -117,6 +119,7 @@ START_TEST(test_int_from_string_overflow)
 
 	snprintf(str, 128, "%u", (unsigned) INT_MAX + 1);
 	test_from_string(p, str, util_int_fromString, p == NULL);
+	ck_assert(errno == ERANGE);
 }
 
 END_TEST
@@ -129,6 +132,7 @@ START_TEST(test_int_from_string_underflow)
 	snprintf(str + 1, 127, "%u", (unsigned) INT_MIN + 1);
 	str[0] = '-'; // Add minus sign
 	test_from_string(p, str, util_int_fromString, p == NULL);
+	ck_assert(errno == ERANGE);
 }
 
 END_TEST
@@ -139,6 +143,7 @@ START_TEST(test_int_from_string_invalid)
 	int *p;
 
 	test_from_string(p, str, util_int_fromString, p == NULL);
+	ck_assert(errno == 0);
 }
 
 END_TEST
@@ -149,6 +154,7 @@ START_TEST(test_int_from_string_empty)
 	int *p;
 
 	test_from_string(p, str, util_int_fromString, p == NULL);
+	ck_assert(errno == 0);
 }
 
 END_TEST
@@ -179,6 +185,7 @@ START_TEST(test_double_from_string_leading)
 	double *p;
 
 	test_from_string(p, str, util_double_fromString, p == NULL);
+	ck_assert(errno == 0);
 }
 
 END_TEST
@@ -189,6 +196,7 @@ START_TEST(test_double_from_string_overflow)
 	double *p;
 
 	test_from_string(p, str, util_double_fromString, p == NULL);
+	ck_assert(errno == ERANGE);
 }
 
 END_TEST
@@ -199,6 +207,7 @@ START_TEST(test_double_from_string_underflow)
 	double *p;
 
 	test_from_string(p, str, util_double_fromString, p == NULL);
+	ck_assert(errno == ERANGE);
 }
 
 END_TEST
@@ -270,6 +279,7 @@ START_TEST(test_double_from_string_empty)
 	double *p;
 
 	test_from_string(p, str, util_double_fromString, p == NULL);
+	ck_assert(errno == 0);
 }
 
 END_TEST
@@ -284,6 +294,7 @@ START_TEST(test_string_from_string_empty)
 
 END_TEST
 
+#ifndef NDEBUG
 START_TEST(test_from_null_string)
 {
 	/* Should either segfault or fail an assertion */
@@ -291,6 +302,7 @@ START_TEST(test_from_null_string)
 
 	test_from_string(p, NULL, functions[_i], 0);
 }
+#endif
 
 END_TEST
 
@@ -339,7 +351,9 @@ Suite *from_string_suite_create(void)
 	tcase_add_test(invalid, test_double_from_string_hex_neg);
 
 	signal_invalid = tcase_create(CASE_SIGNAL_INVALID);
+#ifndef NDEBUG
 	tcase_add_loop_test_raise_signal(signal_invalid, test_from_null_string, SIGABRT, 0, NUM_OF_FN);
+#endif
 	tcase_set_tags(signal_invalid, NO_FORK_TAG);
 
 	suite_add_tcase(s, core);

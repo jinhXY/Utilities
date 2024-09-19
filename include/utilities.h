@@ -253,7 +253,7 @@ char *util_string_toString(const void *s);
  * @param str Pointer to the char. Must not be NULL.
  * Later characters are ignored.
  * @return Pointer to the character created. Must be freed after use.
- * NULL is returned if malloc fails.
+ * NULL is returned if malloc fails. In this case, the errno value is set.
  */
 void *util_char_fromString(const char *str);
 
@@ -264,6 +264,7 @@ void *util_char_fromString(const char *str);
  * Trailing characters after the number are ignored. Parsing is done with strtol().
  * @return Pointer to the integer created. Must be freed after use.
  * NULL is returned if malloc fails or if the string could not be parsed.
+ * In this case, the errno value is set. If errno is 0, no integer could be parsed.
  */
 void *util_int_fromString(const char *str);
 
@@ -274,6 +275,7 @@ void *util_int_fromString(const char *str);
  * Trailing characters after the number are ignored. Parsing is done with strtod().
  * @return Pointer to the double created. Must be freed after use.
  * NULL is returned if malloc fails or if the string could not be parsed.
+ * In this case, the errno value is set. If errno is 0, no value could be parsed.
  */
 void *util_double_fromString(const char *str);
 
@@ -282,7 +284,7 @@ void *util_double_fromString(const char *str);
  *
  * @param str String to duplicate. Must not be NULL.
  * @return Duplicated string. Must be freed after use.
- * NULL is returned if malloc fails or if the string could not be copied.
+ * NULL is returned if the string could not be copied. In this case, the errno value is set.
  */
 void *util_string_fromString(const char *str);
 

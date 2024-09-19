@@ -142,7 +142,6 @@ typedef enum {
 #define check(A, M, ...)           \
 	if (!(A)) {                    \
 		log_err(M, ##__VA_ARGS__); \
-		errno = 0;                 \
 		goto error;                \
 	}
 
@@ -152,7 +151,6 @@ typedef enum {
 #define sentinel(M, ...)           \
 	{                              \
 		log_err(M, ##__VA_ARGS__); \
-		errno = 0;                 \
 		goto error;                \
 	}
 
@@ -167,7 +165,6 @@ typedef enum {
 #define check_debug(A, M, ...)   \
 	if (!(A)) {                  \
 		debug(M, ##__VA_ARGS__); \
-		errno = 0;               \
 		goto error;              \
 	}
 
