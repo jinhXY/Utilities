@@ -11,20 +11,30 @@
 #include "macros.h"
 
 #include <assert.h>
+#include <float.h>
 #include <limits.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 /**
  * @brief Maximum length of a string containing a double.
+ * Only the digits of precision are taken.
+ * @details Since we are representing the double using the %g format specifier,
+ * the number of characters is the sum of:
+ * * 1 for the sign if the number is negative
+ * * DBL_DIG digits
+ * * 1 dot
+ * * 2 characters for exponent notation
+ * * Number of digits of the exponent
  */
-#define MAX_DOUB_LEN 127
+#define MAX_DOUB_LEN (1 + DBL_DIG + 1 + 2 + (int) ceil(log10(DBL_MAX_10_EXP)))
 
 /**
  * @brief Maximum length of a string containing a long.
  */
-#define MAX_LONG_LEN 63
+#define MAX_LONG_LEN ((size_t) ceil(log10((double) LONG_MAX)))
 
 /**
  * @brief Maximum length of a string containing a character.
@@ -34,7 +44,7 @@
 /**
  * @brief Maximum length of a string containing an integer.
  */
-#define MAX_INT_LEN 31
+#define MAX_INT_LEN ((size_t) ceil(log10(INT_MAX)))
 
 /* SECTION - Printing functions */
 
@@ -83,7 +93,7 @@ int util_double_print(FILE *f, const void *d)
 		return fprintf(f, "%s ", DEF_NULL);
 	}
 
-	return fprintf(f, "%lf", *(const double *) d);
+	return fprintf(f, "%.*g", DBL_DIG, *(const double *) d);
 }
 
 int util_string_print(FILE *f, const void *s)
@@ -214,7 +224,7 @@ char *util_double_to_string(const void *d)
 	str = malloc((MAX_DOUB_LEN + 1) * sizeof(char));
 	check_mem(str);
 
-	snprintf(str, MAX_DOUB_LEN + 1, "%lf", *(const double *) d);
+	snprintf(str, MAX_DOUB_LEN + 1, "%.*g", DBL_DIG, *(const double *) d);
 
 error:
 	return str;

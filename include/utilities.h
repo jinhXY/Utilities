@@ -99,7 +99,7 @@ int util_char_print(FILE *f, const void *c);
 int util_int_print(FILE *f, const void *i);
 
 /**
- * @brief Print a double precision value, followed by a space.
+ * @brief Print a double precision value (using %g specifier), followed by a space.
  *
  * @param f A pointer to the stream. Must not be NULL.
  * @param d A pointer to the value to print (base 10). @ref DEF_NULL is printed if NULL.
@@ -239,7 +239,7 @@ void *util_int_from_string(const char *str);
 /**
  * @brief Creates a double from a string.
  *
- * @param str String with the double (base 10). Must not be NULL.
+ * @param str String with the double (base 10, using %g specifier). Must not be NULL.
  * Trailing characters after the number are ignored. Parsing is done with strtod().
  * @return Pointer to the double created. Must be freed after use.
  * NULL is returned if malloc fails or if the string could not be parsed.
